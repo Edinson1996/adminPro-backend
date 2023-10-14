@@ -7,20 +7,14 @@ const { dbConnection } = require('./database/config')
 const app =express();
 //cofigurar cors
 app.use(cors())
+//lectura y parseo del body
+app.use(express.json());
 //Base de datos
 dbConnection();
 
-//mean_user
-//GlkCFkXp9OqFiJ4V
-//ruta
-app.get('/',(req,res)=>{
-
-    res.json({
-        ok:true,
-        msg: 'Hola mundo'
-    })
-
-})
+//Rutas
+app.use('/api/usuarios',require('./routes/usuarios'));
+app.use('/api/login',require('./routes/auth'));
 
 app.listen(process.env.PORT,()=>{
     console.log('Servidor Corriendo en puerto '+process.env.PORT)
